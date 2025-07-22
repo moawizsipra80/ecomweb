@@ -1,0 +1,143 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block css %}
+<style>
+.column {
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    animation: slideInFromBottom 1s ease-out;
+}
+
+.centered-about {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+p {
+  text-align: justify;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+.banner img {
+  width: 100%;
+  height: 100px;
+  display: inline-block;
+  object-fit: cover;
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="banner">
+  <img src="https://lear-connectors.com/wp-content/uploads/2023/01/aboutupdated.jpg">
+</div>
+
+<div class="container my-5">
+
+  <!-- Row: About Us + CEO Card -->
+  <div class="row g-4 align-items-center">
+    <!-- About Us Text -->
+    <div class="col-lg-8">
+      <div class="column">
+        <h3>About Us</h3>
+        <p>
+          The entrepreneurial spirit and business education instilled in me a strong passion for excellence in sales and marketing. With this drive, I launched Orient Digital Marketing (ODM) to provide cutting-edge digital solutions for businesses worldwide.<br><br>
+          Our journey began with a vision to revolutionize online marketing by offering top-tier SEO, social media marketing, web development, and paid advertising services. Over the years, we have worked with diverse industries, helping brands establish a strong digital presence and achieve measurable growth.<br><br>
+          With 15+ years of expertise in marketing, branding, and digital strategy, ODM Online has built a reputation for delivering data-driven, ROI-focused solutions. Our team of professionals ensures that every project is executed with precision, from strategy development to implementation, ensuring maximum impact.<br><br>
+          At ODM Online, we are committed to innovation, performance, and client success, making us a trusted partner in the ever-evolving digital landscape.
+        </p>
+      </div>
+    </div>
+
+    <!-- CEO Card -->
+    <div class="col-lg-4">
+      <div class="card shadow-lg border-0 text-center">
+        <img src="https://media.licdn.com/dms/image/v2/C4D03AQFTEzJ6XwrdGQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1628008146475?e=2147483647&v=beta&t=XoZQyYAs_7_UIKUjiLcu0GFSCsPk4_PvgLeyH-TJC4Y"
+             class="card-img-top rounded-circle mx-auto mt-4"
+             alt="CEO"
+             style="height: 120px; width: 120px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title mb-1">Muhammad Afzal Sipra</h5>
+          <p class="card-text text-muted">CEO of Orient Marketing</p>
+          <a href="https://www.orientmarketing.com.pk/" target="_blank">
+            <button type="button" class="btn btn-info">Visit</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CEO Message -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="p-4 shadow-sm rounded bg-light" style="border-left: 5px solid #0d6efd;">
+        <h4 class="mb-3 text-primary">Message from the CEO</h4>
+        <p>
+          It gives me immense pleasure to bring on record that ODM Online has evolved and re-engineered its expertise to serve businesses with a strong commitment to digital excellence.<br><br>
+          Driven by a highly professional, dedicated, and innovative team, ODM Online has stepped into the digital marketing landscape with a vision to transform brands and help businesses thrive in the online world. With the continuous support of our valued clients, team, and partners, we have embarked on a new era of digital marketing, web development, and brand growth strategies.<br><br>
+          ODM Online operates independently as well as in collaboration with leading industry experts to provide cutting-edge marketing solutions. Our expertise spans SEO, social media marketing, paid advertising, web development, and AI-driven marketing strategies.<br><br>
+          No doubt, we have taken a humble start, but with years of industry experience and a passion for digital innovation, we have achieved phenomenal growth within a short span of time. With the blessing of Allah Almighty, we continue to deliver impactful solutions that drive real results for businesses.<br><br>
+          We assure our clients of high-quality standards in our services, ensuring measurable success in every campaign. At ODM Online, we believe that creativity, expertise, and data-driven strategies are the foundation of digital excellence. Your growth is our mission, and leveraging the latest technology is our tradition.
+        </p>
+      </div>
+    </div>
+  </div>
+<div class="row mt-5">
+  
+  <!-- Mission Card -->
+  <div class="col-md-6 mb-4">
+    <div class="p-4 shadow-sm rounded bg-light h-100" style="border-left: 5px solid #0d6efd;">
+      <h4 class="mb-3 text-primary">Our Mission</h4>
+      <p>
+        At ODM Online, our mission is to provide excellence in digital marketing, web development, and brand growth strategies at a fair price for businesses across various industries.
+        <br><br>
+        We strive every day to deliver innovative solutions that drive measurable success, ALWAYS putting our clients’ best interests first—even before our own.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-4">
+    <div class="p-4 shadow-sm rounded bg-light h-100" style="border-left: 5px solid #0d6efd;">
+      <h4 class="mb-3 text-primary">Our Vision</h4>
+      <p>
+        Our vision is to achieve 100% client satisfaction by delivering high-quality, result-driven digital solutions at an affordable cost.
+        <br><br>
+        We aim to establish ourselves as a leading digital agency, offering technology-based marketing solutions that create a lasting impact.
+        <br><br>
+        With innovation at our core, we believe that the sky is the limit, and we are always ready to take our achievements to the next level.
+      </p>
+    </div>
+  </div>
+
+</div>
+<!--containcer end-->
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+{% endblock %}

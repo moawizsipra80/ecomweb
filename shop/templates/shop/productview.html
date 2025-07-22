@@ -1,0 +1,72 @@
+{% extends 'shop/basic.html' %}
+{% block title %} {{product.name}} {% endblock %}
+{% block body %}
+<div class="container my-4">
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row" style="width: 23rem;">
+   <img src="/media/{{product.image}}" alt="">
+    </div>
+    <div class="row " >
+      <!--yahan error a rha ha a-->
+<!-- <a href="{% url 'checkout' %}" class="btn btn-primary my-3" id="buyNow">
+  Buy Now
+</a> -->
+
+<div class="input-group mb-3  my-6" style="width: 140px;">
+  <button class="btn btn-outline-secondary quantity-decrease" type="button">-</button>
+  <input type="text" class="form-control text-center quantity-input" value="1" id="qtyInput" readonly>
+  <button class="btn btn-outline-secondary quantity-increase" type="button">+</button>
+</div>
+
+<a href="{% url 'checkout' %}" id="buyNow" class="btn btn-primary my-3">
+  Buy Now
+</a>
+
+<!-- ends here -->
+ <button class="btn btn-primary my-6  cart "id="{{ product.id }}" >Add To Cart</button>
+ 
+    </div>
+</div>
+
+<div class="col-md-8">
+    <!-- <h5>{{product.name}}</h5> -->
+    <h5 class="card-title" id="namepr{{ product.id }}">{{ product.name }}</h5>
+    
+    <p>{{product.product_desc}}</p>
+    <p><b>{{product.price}} PKR</b></p>
+</div>
+</div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const buyNowBtn = document.getElementById("buyNow");
+  const productId = "{{ product.id }}";
+  const productName = document.getElementById("namepr{{ product.id }}").innerText;
+  const qtyInput = document.getElementById("qtyInput");
+
+  // Quantity increase/decrease
+  document.querySelector(".quantity-increase").addEventListener("click", function () {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+  });
+
+  document.querySelector(".quantity-decrease").addEventListener("click", function () {
+    if (parseInt(qtyInput.value) > 1) {
+      qtyInput.value = parseInt(qtyInput.value) - 1;
+    }
+  });
+
+  buyNowBtn.addEventListener("click", function () {
+    const qty = parseInt(qtyInput.value);
+    const cart = {};
+    cart["pr" + productId] = [qty, productName];
+    localStorage.setItem("cart", JSON.stringify(cart));
+  });
+});
+</script>
+
+
+{% endblock %}

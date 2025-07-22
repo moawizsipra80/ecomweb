@@ -1,0 +1,111 @@
+{% extends 'basic.html' %}
+{% block title %} Sign Up {% endblock %}
+{% block css %}
+<style>
+      .navbar-brand img {
+        height: 40px;
+        width: auto;
+      }
+      .navbar-custom {
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 0.8rem 1rem;
+      }
+
+      /* Navbar buttons */
+      .nav-button {
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 0 8px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-button:hover {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      }
+
+      /* Optional: make navbar links a bit larger */
+      .navbar-nav .nav-item {
+        margin: 0 5px;
+      }
+      .navbar img{
+        height: 70px;
+        width: auto;
+      }
+      .section img{
+        height: 40px;
+        width: auto;
+        }
+
+  body {
+    background-color: #f8f9fa;
+  }
+  .form-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  .form-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  }
+  .form-text {
+    font-size: 0.9rem;
+  }
+  .btn-primary {
+    transition: background-color 0.3s ease-in-out;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+  <form method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <h3 class="text-center mb-4">Sign Up</h3>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputName" class="form-label">Name</label>
+      <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name">
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputPhone" class="form-label">Contact Number</label>
+      <input type="tel" name="contactno" class="form-control" id="contactno" placeholder="03XX-XXXXXXX">
+    </div>
+       {% if message %}
+     <div class="alert alert-success" role="alert">
+    {{ message }}
+    {% endif %}
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+    </div>
+ 
+
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
+  </form>
+</div>
+{% endblock %}

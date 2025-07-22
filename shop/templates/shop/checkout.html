@@ -1,0 +1,121 @@
+{% extends 'shop/basic.html' %}
+{% block title %} Checkout Page {% endblock %}
+
+{% block body %}
+<div  class="container">
+ <div class="col my-4">   
+<h2>STEP 1 -- OMECOM CART EXPRESS Checkout --REVIEW YOUR CART ITEMS</h2>
+<div >
+<ul class="list-group" id="items" class="mt-4 my-6"></ul>
+
+</div>
+</div>
+</div>
+<div class="col">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="row mb-3">
+      <h2 class="text-center mb-4">Step 2 - Enter Address & Other Details</h2>
+      
+      <form method="post"  action="{% url 'checkout' %}">
+         {% csrf_token %}
+
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input name="emailorder" type="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="col-md-6">
+         <label for="name2" class="form-label">Name</label>
+        <input name="name2" type="text" class="form-control" id="name2" placeholder="Your Name">
+         </div>
+
+          <div class="col-md-6">
+            <label for="Famous Place" class="form-label">Famous Place</label>
+            <input  name="famousplace" type="text" class="form-control" id="Famous Place" placeholder="Enter Famous Place near your house">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input name="address" type="text" class="form-control" id="address1" placeholder="1234 Main St">
+        </div>
+
+        <div class="mb-3">
+          <label for="address2" class="form-label">Address 2</label>
+          <input name="address2"  type="text" class="form-control" id="address2" placeholder="Apartment, studio, or floor">
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-5">
+            <label for="city" class="form-label">City</label>
+            <input name="city"  type="text" class="form-control" id="city">
+          </div>
+          <div class="col-md-4">
+            <label for="state" class="form-label">State</label>
+            <select id="state" class="form-select" name="state">
+              <option selected>Choose...</option>
+              <option>Punjab</option>
+              <option>Sindh</option>
+              <option>KPK</option>
+              <option>Balochistan</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="zip" class="form-label">Zip</label>
+            <input name="zip"  type="text" class="form-control" id="zip">
+          </div>
+        </div>
+
+        <div class="form-check mb-0">
+          <label class="form-control" for="tel">Phone number</label>
+          <input name="phonenumber"  class="form-control" type="tel" id="inputphone" placeholder="+92896989..">
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" id="porder" class="btn btn-primary place-order" data-id="{{ product.id }}">Place Order</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  let itemsList = document.getElementById("items");
+  if (cart && Object.keys(cart).length > 0) {
+    let html = "";
+    for (let key in cart) {
+      let [qty, name] = cart[key];
+      html += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>${name}</strong>
+                <span class="badge bg-primary rounded-pill">${qty}</span>
+              </li>`;
+    }
+    itemsList.innerHTML = html;
+
+      // alert(" Order placed successfully! Your order ID is {{ id }}. Use it to track your order.");
+// alert(`Your order has been placed and your order ID is ${order_id}. Use this ID to track your order.`);
+
+
+  } 
+  else {
+    itemsList.innerHTML = `<li class="list-group-item">Your cart is empty.</li>`;
+  }
+ 
+ 
+});
+// $('#porder').on('click',function()
+// {
+// alert(`Your order has been placed and your order ID is ${order_id}. Use this ID to track your order.`);
+
+// });
+</script>
+{% endblock %}
+
+

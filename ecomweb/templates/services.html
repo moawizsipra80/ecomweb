@@ -1,0 +1,196 @@
+{% extends 'basic.html' %}
+
+{% block css %}
+<style>
+  .service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .popover-header {
+    font-weight: bold;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background: #0d6efd;
+    display: block;
+    margin: 10px auto 0;
+  }
+
+  .section-subtext {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    color: #555;
+  }
+      .navbar-brand img {
+        height: 40px;
+        width: auto;
+      }
+
+      /* Navbar custom background and padding */
+      .navbar-custom {
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 0.8rem 1rem;
+      }
+
+      /* Navbar buttons */
+      .nav-button {
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 0 8px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-button:hover {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      }
+
+      /* Optional: make navbar links a bit larger */
+      .navbar-nav .nav-item {
+        margin: 0 5px;
+      }
+      .navbar img{
+        height: 70px;
+        width: auto;
+      }
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+  <div class="section-title">Our Services</div>
+  <p class="section-subtext">
+    At ODM Online, we offer a full suite of digital marketing solutions designed to elevate your brand and drive real results.
+    Our expert team leverages cutting-edge strategies to ensure your business thrives in the digital landscape.
+  </p>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- Digital Marketing -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="Digital Marketing" data-bs-content="Includes Facebook, Instagram, Google, YouTube ads, and more.">
+        <div class="card-body">
+          <h5 class="card-title">Digital Marketing</h5>
+          <p class="card-text">We offer services like Facebook Ads, Instagram Ads, YouTube, and Google Ads.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SMS Marketing -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="SMS Marketing" data-bs-content="WhatsApp and SMS campaigns tailored to increase customer engagement.">
+        <div class="card-body">
+          <h5 class="card-title">SMS Marketing</h5>
+          <p class="card-text">WhatsApp marketing only to grab more customers for you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Media Marketing -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="SMM" data-bs-content="Campaigns across Facebook, Instagram, LinkedIn and more.">
+        <div class="card-body">
+          <h5 class="card-title">Social Media Marketing (SMM)</h5>
+          <p class="card-text">Maximize your presence with targeted campaigns.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="SEO" data-bs-content="Rank higher on Google and drive organic traffic.">
+        <div class="card-body">
+          <h5 class="card-title">Search Engine Optimization (SEO)</h5>
+          <p class="card-text">Improve your website ranking and gain more visibility.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPC -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="PPC Advertising" data-bs-content="High ROI through data-driven paid ad campaigns.">
+        <div class="card-body">
+          <h5 class="card-title">Pay-Per-Click (PPC) Advertising</h5>
+          <p class="card-text">Get instant visibility with ROI-focused paid ads.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Marketing -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="Content Marketing" data-bs-content="Compelling blog posts, copywriting, and storytelling.">
+        <div class="card-body">
+          <h5 class="card-title">Content Marketing</h5>
+          <p class="card-text">Convert your audience with effective content strategies.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web Development -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="Web Development" data-bs-content="Responsive, fast, and stunning websites to drive conversions.">
+        <div class="card-body">
+          <h5 class="card-title">Web Development & Design</h5>
+          <p class="card-text">Responsive and attractive websites for better UX and results.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brand Strategy -->
+    <div class="col">
+      <div class="card h-100 service-card" data-bs-toggle="popover" title="Brand Strategy" data-bs-content="Create a strong, memorable identity in your market.">
+        <div class="card-body">
+          <h5 class="card-title">Brand Strategy & Growth</h5>
+          <p class="card-text">Build a memorable identity that stands out in a competitive market.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl, {
+        trigger: 'hover',
+        placement: 'top'
+      });
+    });
+  });
+</script>
+{% endblock %}

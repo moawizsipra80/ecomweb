@@ -1,0 +1,308 @@
+{% extends 'shop/basic.html' %}
+
+{% block css %}
+<style>
+  .carousel-wrapper {
+    position: relative;
+  }
+
+  .product-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .Controls {
+    text-align: center;
+    margin-bottom: 0px;
+    color: black;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    position: static;
+    display: inline-block;
+    width: auto;
+    color: black;
+    margin: 0 10px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 450px;
+    margin: 10px 0;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .card-text {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+
+  .card-img-top {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .product-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    background-size: 100%, 100%;
+    width: 30px;
+    height: 30px;
+  }
+</style>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  {% for Products, range, nSlides, cat in allproducts %}
+    <h1 class="my-4">{{ cat|title }}</h1>
+
+    <div id="demo{{ forloop.counter }}" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for i in Products %}
+          {% if forloop.counter0|divisibleby:4 %}
+            <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+              <div class="row">
+          {% endif %}
+
+          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
+            <div class="card w-100 h-100">
+              <img src="/media/{{ i.image }}" class="card-img-top" alt="{{ i.name }}">
+              <div class="card-body">
+                <h5 class="card-title" id="namepr{{i.id}}">{{ i.name }}</h5>
+                <p class="card-text">{{ i.product_desc }}</p>
+
+                <div class="input-group mb-3 quantity-box d-none" style="width: 140px;">
+                  <button class="btn btn-outline-secondary quantity-decrease" type="button">-</button>
+                  <input type="text" class="form-control text-center quantity-input" value="1" readonly>
+                  <button class="btn btn-outline-secondary quantity-increase" type="button">+</button>
+                </div>
+
+                <button id="pr{{ i.id }}" class="cart btn btn-primary">Add to Cart</button>
+                <a href="{% url 'productview' i.id %}">
+                  <button id="qv{{ i.id }}" class="btn btn-primary px-4 py-2 mx-2 my-2  ">Quick View</button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="Controls">
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo{{ forloop.counter }}" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#demo{{ forloop.counter }}" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="product-grid">
+  {% for product in products %}
+    <div class="card" style="width: 18rem;">
+      <img src="/media/{{ product.image }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title" id="namepr{{ product.id }}">{{product.name}}</h5>
+        <p>{{product.price}} PKR</p>
+
+        <div class="input-group mb-3 quantity-box d-none" style="width: 140px;">
+          <button class="btn btn-outline-secondary quantity-decrease" type="button">-</button>
+          <input type="text" class="form-control text-center quantity-input" value="1" readonly>
+          <button class="btn btn-outline-secondary quantity-increase" type="button">+</button>
+        </div>
+
+        <button id="pr{{ product.id }}" class="cart btn btn-primary">ADD TO CART</button>
+
+        <a href="{% url 'productview' product.id %}">
+          <button id="qv{{ product.id }}" class="btn btn-primary px-4 py-2 mx-2 my-2">Quick View</button>
+        </a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {};
+  updateCartDisplay();
+
+  $('.cart').click(function () {
+    let box = $(this).closest('.card-body').find('.quantity-box');
+    $('.quantity-box').addClass('d-none');
+    box.removeClass('d-none');
+
+    var idstr = this.id.toString();
+    if(cart[idstr] != undefined){
+      cart[idstr] = cart[idstr] + 1;
+    } else {
+      cart[idstr] = 1;  
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+  });
+
+  $(document).on('click', '.remove-item', function () {
+    const id = $(this).data('id');
+    delete cart[id];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+    updatePopover(cart);
+  });
+
+  $(document).on('click', '#clear-cart', function () {
+    cart = {};
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+    updatePopover(cart);
+  });
+
+  function updateCartDisplay() {
+    let total = Object.values(cart).reduce((sum, qty) => sum + (typeof qty === 'number' ? qty : qty[0]), 0);
+    $('#cart-count').text(total);
+    document.getElementById('cart-count').innerText = total;
+  }
+
+  const popoverTrigger = document.getElementById('popcart');
+  let popoverInstance;
+
+  if(popoverTrigger){
+    popoverTrigger.addEventListener('click', function () {
+      updatePopover(cart);
+    });
+  }
+
+  function updatePopover(cart) {
+    let popstr = "<h5>Your Shopping Cart</h5><div class='row'>";
+    let i = 1;
+    for (let item in cart) {
+      let cleanId = item.replace('pr', '');
+      let nameElement = document.getElementById('namepr' + cleanId);
+      if (nameElement) {
+        popstr += `<b>${i}.</b> ${nameElement.innerHTML} — Qty: ${typeof cart[item] === 'number' ? cart[item] : cart[item][0]}
+          <button class="btn btn-sm btn-danger ms-2 remove-item" data-id="${item}">Remove</button><br>`;
+        i++;
+      }
+    }
+
+    popstr += `
+      <div class="mt-2">
+        <button id="clear-cart" class="btn btn-sm btn-warning">Clear Cart</button>
+      </div>
+    </div>`;
+
+    const existingInstance = bootstrap.Popover.getInstance(popoverTrigger);
+    if (existingInstance) {
+      existingInstance.dispose();
+    }
+
+    popoverInstance = new bootstrap.Popover(popoverTrigger, {
+      html: true,
+      trigger: 'manual',
+      content: popstr,
+      sanitize: false
+    });
+
+    setTimeout(() => {
+      popoverTrigger.focus();
+      popoverInstance.show();
+    }, 100);
+  }
+
+  $(document).on('click', '.quantity-increase', function () {
+    let input = $(this).siblings('.quantity-input');
+    let curval = parseInt(input.val());
+    input.val(curval + 1);
+    let id = $(this).closest('.card-body').find('.cart').attr('id');
+    if (cart[id]) 
+    {
+      cart[id][0] += 1;
+    }
+    else{
+      // cart[id]=[qty,name];
+      cart[id] = [qty, name];
+
+    }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartDisplay();
+    
+  });
+
+  $(document).on('click', '.quantity-decrease', function () {
+    let input = $(this).siblings('.quantity-input');
+    let curval = parseInt(input.val());
+    if (curval > 1) {
+      input.val(curval - 1);
+      let id = $(this).closest('.card-body').find('.cart').attr('id');
+      if (cart[id]) {
+        cart[id] = curval - 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+      }
+    }
+  });
+});
+
+</script>
+{% endblock %}

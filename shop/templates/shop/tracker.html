@@ -1,0 +1,74 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Order Tracker{% endblock %}
+
+{% block body %}
+
+<div  class="container">
+ <div class="col my-4">   
+<h2>Enter Your ID to track your Order </h2>
+      <form method="post" action="#" id="trackerForm">
+        {% csrf_token %}
+
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+<input name="email" type="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="col-md-6">
+         <label for="name2" class="form-label">Order ID</label>
+        <input name="orderID" type="text" class="form-control" id="name2" placeholder="order ID">
+         </div>
+       
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary place-order" data-id="{{ product.id }}">Track Order</button>
+        </div>
+
+</div>
+</div>
+<div class="col">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="row mb-3">
+      <h2 class="text-center mb-4">Your Order Status</h2>
+      
+       <p>Your Order ID is: {{ order_id }}</p>
+
+     
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#trackerForm').submit(function(event) {
+    event.preventDefault(); 
+
+    var formdata = {
+      'orderID': $('input[name=orderID]').val(),
+      'email': $('input[name=email]').val(),
+      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+    };
+
+    $.ajax({
+      type: 'POST',
+      url: '/shop/tracker/',
+      data: formdata,
+      encode: true,
+    })
+    .done(function(data) {
+      if (data.message) {
+        alert("Order Status: " + data.message);
+      } else {
+        alert("Order Updates: " + JSON.stringify(data.updates));
+      }
+    });
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get('order_id');
+  if (orderId) {
+    alert(`Your order has been placed. Your order ID is ${orderId}. Use this ID to track your order.`);
+  }
+</script>
+{% endblock %}
